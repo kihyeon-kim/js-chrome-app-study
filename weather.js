@@ -1,10 +1,18 @@
-const API_KEY = "123";
+const weather = document.querySelector(".js-weather");
+const API_KEY = "abc";
 const COORDS = 'coords';
 
 function getWeather(lat, long) {
-    // TODO: 승인 시간이 걸리는 듯.  가입하자마자 바로는, 401 남.
-    fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${API_KEY}`);
-    // TODO: then...
+    fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${API_KEY}`)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (json) {
+            console.log(json);
+            const temperature = json.main.temp;
+            const place = json.name;
+            weather.innerText = `${temperature} @ ${place}`
+        })
 }
 
 function saveCoords(coordsObj) {
